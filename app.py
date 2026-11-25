@@ -1,5 +1,5 @@
 from flask import Flask, render_template_string, request
-import PyPDF2
+from pypdf import PdfReader
 import re
 
 app = Flask(name)
@@ -63,7 +63,7 @@ if request.method == "POST":
         filename = file.filename.lower()
 
         if filename.endswith(".pdf"):
-            reader = PyPDF2.PdfReader(file)
+            reader = PdfReader(file)
             text = " ".join(
                 page.extract_text() or "" for page in reader.pages
             )
